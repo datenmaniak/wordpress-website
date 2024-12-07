@@ -1,0 +1,17 @@
+# Usa la imagen oficial de WordPress como base
+FROM mariadb:10.6.20
+
+# Instalar ping y mysql-client
+RUN apt-get update && \
+    apt-get install -y iputils-ping  && \
+    rm -rf /var/lib/apt/lists/*
+
+
+# Establece el directorio de trabajo
+#WORKDIR /var/lib/mysql
+
+EXPOSE 3306
+
+
+
+

@@ -1,0 +1,1 @@
+rm -iv dkdata_mysql/mysql.sock 

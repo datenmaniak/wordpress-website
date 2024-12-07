@@ -1,0 +1,52 @@
+
+services:
+  db:
+    build:
+      context: .
+      dockerfile: Dockerfile-db
+    container_name: secondary-mariadb
+    image: mariadb:10.6.20
+    restart: always
+    environment:
+      MARIADB_ROOT_PASSWORD: ${ROOTPASSWORD}
+      MARIADB_DATABASE: ${DBNAME}
+      MARIADB_USER: ${DBUSER}
+      MARIADB_PASSWORD: ${DBPASSWORD}
+      #MYSQL_RANDOM_ROOT_PASSWORD: '1'
+    volumes:
+      #- "${PWD}/dkdata_mysql:/var/lib/mysql" 
+      - dk-secondary-db:/var/lib/mysql
+    networks:
+      - dk-secondary
+
+  wordpress:
+    build:
+      context: .
+      dockerfile: Dockerfile-cms
+    container_name: secondary-cms
+    image: wordpress:6.7.1
+    restart: always
+    ports:
+      - "8090:80"
+    environment:
+      WORDPRESS_DB_HOST: db
+      WORDPRESS_DB_USER: ${DBUSER}
+      WORDPRESS_DB_PASSWORD: ${DBPASSWORD}
+      WORDPRESS_DB_NAME: ${DBNAME}
+    volumes:
+      #- "${PWD}/dkdata_wp:/var/www/html" 
+      - dk-secondary-cms:/var/www/html
+    networks:
+      - dk-secondary
+    depends_on:
+      - db
+
+networks:
+  dk-secondary:
+    external: true
+
+volumes:
+  dk-secondary-cms:
+    external: true
+  dk-secondary-db:
+    external: true

@@ -1,0 +1,26 @@
+# Usa la imagen oficial de WordPress como base
+FROM wordpress:6.7.1
+
+# Instalar ping y mysql-client
+RUN apt-get update && \
+    apt-get install -y iputils-ping default-mysql-client && \
+    rm -rf /var/lib/apt/lists/*
+
+
+# Copia el script al contenedor
+# COPY setup_wp_config.sh /usr/local/bin/setup_wp_config.sh
+
+# # Asegúrate de que el script sea ejecutable
+# RUN chmod +x /usr/local/bin/setup_wp_config.sh
+
+# # Ejecuta el script para ajustar wp-config.php
+# RUN /usr/local/bin/setup_wp_config.sh
+
+# Establece el directorio de trabajo
+WORKDIR /var/www/html
+
+# Cambiar el entrypoint del contenedor
+#ENTRYPOINT ["/usr/local/bin/entrypoint.sh"]
+
+# Exponer el puerto 80
+EXPOSE 80
