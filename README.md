@@ -24,9 +24,26 @@ Realizado como ensayo de laboratorio para comprobar plugins y migraciones de con
 - **Temas y plugins incluidos**: Acceso a una variedad de temas y plugins populares.
 
 
-## Requisitos
+## Requisitos previos
 
 Antes de comenzar, asegúrate de tener:
 
 - **Docker** instalado en tu sistema.
+- **network** 
+    - Crear la red del contenedor
+
+        Para este modelo, se utiliza, la red: 
+        
+            dk-secondary
+
+- **volumenes** 
+    - Crear los volumenes para el CMS y la data. 
+
+        Para este modelo, se utilizan:
+        
+            - dk-secondary-cms
+            - dk-secondary-db
+
+
+
 
